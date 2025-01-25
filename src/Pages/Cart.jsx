@@ -91,7 +91,7 @@ className='buttons'>-</button>
 ):
              
 (
-<div className='flex flex-col items-center justify-center h-screen'>
+<div className='flex flex-col items-center justify-center w-screen h-screen'>
 <img src={empty} alt="Empty Cart"
 className='w-1/2' />
 <Link to='/collection'> 

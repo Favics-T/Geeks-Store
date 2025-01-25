@@ -1,24 +1,39 @@
-import { StrictMode } from 'react'
+import { StrictMode,Suspense,lazy } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
+// import App from './App.jsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ProductProvider from './Context/ProductContext.jsx'
 import CartProvider from './Context/CartContext.jsx'
+import WishList from './Pages/WishList.jsx'
+import WishListProvider from './Context/WishListContext.jsx'
+import ContextWrapper from './Context/ContextWrapper.jsx'
 
-const queryClient = new QueryClient();
+const App = lazy(()=> import('./App.jsx'));
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 createRoot(document.getElementById('root')).render(
   
-     <StrictMode>
-    <QueryClientProvider client={queryClient}>
-    <CartProvider>
+  <QueryClientProvider client={queryClient}>
+  <CartProvider>
     <ProductProvider>
-       <App />
-      </ProductProvider>
-    </CartProvider>
-      </QueryClientProvider>
-      </StrictMode>
+      
+        <Suspense fallback={<div>Loading...</div>}>
+          <App />
+        </Suspense>
+     
+    </ProductProvider>
+  </CartProvider>
+</QueryClientProvider>
+
   
  
 )

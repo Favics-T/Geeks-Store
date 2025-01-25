@@ -28,7 +28,7 @@ const [] = useState();
     return(
         <div className="bg-black sticky top-0  z-50 w-full  text-white py-6 px-8 sm:px-8 ">
             <ul className="grid grid-cols-3 items-center ">
-              <div className={`flex space-x-4 ${isMenuOpen ? 'block' : 'hid'}`}>
+              <div className={`flex space-x-4 ${isMenuOpen ? 'block' : 'hidd'}`}>
               <Link to='/home'> <li className='font-logoFont0 text-[20px]  text-blue-900  '>Gee<span className="text-white font-medium">ksStore </span></li> </Link> 
               </div>
               
@@ -39,22 +39,21 @@ const [] = useState();
                 <Link to='/women'><li className="lists ">Women</li></Link>
                 </div>
                
-               <div className="flex ">
+               <div className="flex ml-24 ">
               <Link to='/cart'> 
                 <div className="flex relative">
                 
                 <li className="lists mt-3 inline-block">
-                    <MdOutlineShoppingCart className="text-[20px] " /> </li>
+                    <MdOutlineShoppingCart className="text-[20px] " aria-label="CartIcon"/> </li>
                     <h1 
                     className="font-titleFont text-blue-500
                      absolute -top-1 left-6  font-bold text-[20px] ">{cartCount}</h1>
 
                 </div>
              </Link>
-               <Link to='wishlist'><li className="lists text-[20px] mt-3"><IoMdHeart /> </li> </Link>
-                <input type="text" placeholder="Search Products"
-                onChange={(e)=> setSearchTerm(e.target.value)}
-                className="rounded-3xl bg-black border w-60 py-1 px-1 " />
+              
+                
+
                <Link to='/sigin'>  <li className="lists mt-3">< FaUserPlus /></li></Link>
                               </div>
                

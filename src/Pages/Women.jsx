@@ -20,7 +20,7 @@ const Women = ()=>{
     return(
        <div className="my-10">
         <div>
-        <h1 className="buttons text-center font-body-font font-semibold">Womens Collection</h1>
+        <h1 className="buttons text-center font-bodyFont font-semibold">Womens Collection</h1>
         </div>
 
 

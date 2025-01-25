@@ -21,7 +21,7 @@ const Men = () => {
             <div>
                 <h1 className="text-center buttons font-bodyFont font-semibold">Men's Clothing</h1>
             </div>
-            <div className="grid grid-cols-4 pb-20 py-10 h-[120vh] ">
+            <div className="grid grid-cols-4 pb-20 py-10 h-[150vh] ">
             {/* Product Details Section */}
             <section>
                 <h2 className="bg-black my-4 mx-4 rounded-xl text-center text-white font-bold">
