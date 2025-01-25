@@ -1,0 +1,21 @@
+
+
+const filteredProducts = selectedCategory
+       ? products.filter((item) => item.category === selectedCategory)
+        : products;
+
+        const [sortOrder, setSortOrder] = useState("asc");
+
+const sortedProducts = filteredProducts.sort((a, b) => {
+    return sortOrder === "asc" ? a.price - b.price : b.price - a.price;
+});
+
+return (
+    <div>
+        <select onChange={(e) => setSortOrder(e.target.value)}>
+            <option value="asc">Price: Low to High</option>
+            <option value="desc">Price: High to Low</option>
+        </select>
+        {/* Render sortedProducts */}
+    </div>
+);

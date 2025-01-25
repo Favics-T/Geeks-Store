@@ -30,18 +30,21 @@ const Hero = ()=>{
         }, []);
 
     return(
-        <div className='bg-slate-100'>
+        <div className='bg-slate-100 grid grid-cols-1 md:grid md:grid-cols-2 gap-4 items-center '>
 
             {/* image view starts her */}
-                <div>
-                <img src={images[index]} alt="" />
+                <div className='flex justify-center'>
+                <img src={images[index]} alt="heroImg"
+                className='  ' />
                 </div>
                 {/* Image view ends here */}
            
 
 
             {/* Right Div */}
-            <div className="absolute top-60 left-[700px] bg-slate-100">
+            <div className="absolute top-60 left-[700px] 
+            
+             bg-slate-100 ">
 
                 <div>
                     <h1 className="text-[50px] font-bold">UP TO</h1>

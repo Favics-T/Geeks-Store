@@ -3,7 +3,16 @@ import { useQuery } from '@tanstack/react-query'
 
 export const ProductContext = createContext();
 
-const ProductProvider = ( {children} )=>{
+const LoadingSpinner = () => (
+    <div className="h-[120vh] relative bg-black">
+        <div className="bg-black w-[170px] h-0 rounded-full border-[15px] border-yellow-500 border-t-[5px] border-t-black border-b-[10px] border-b-black border-r-[15px] border-r-[#3c4bad] text-black animate-ani absolute top-[40%] left-[50%]">
+            <h2 className="text-white font-logoFont0 text-[50px]">Geeks</h2>
+        </div>
+    </div>
+);
+
+
+const ProductProvider = ({ children })=>{
 
    const {data: products= [], isPending , error } = useQuery({
     queryKey : ['products'],
@@ -15,6 +24,7 @@ const ProductProvider = ( {children} )=>{
     return(
         <div>
 
+            <LoadingSpinner />
            <div className="h-[120vh] relative bg-black ">
            <div class="bg-black w-[170px] h-0 rounded-full border-[15px] border-yellow-500
             border-t-[5px] border-t-black border-b-[10px] border-b-black border-r-[15px] border-r-[#3c4bad]
@@ -30,16 +40,16 @@ const ProductProvider = ( {children} )=>{
 
    if(error){
     return(
-        <h2>Erro :{error.message}</h2>
+        <h2>Error :{error.message}</h2>
     )
    }
 
-//    console.log(products)
+   console.log(products)
 
     return(
-        <div className="">
-            <ProductContext.Provider value={{products}}>
-                { children } 
+        <div >
+            <ProductContext.Provider value={{ products }}>
+                {children} 
             </ProductContext.Provider>
 
         </div>

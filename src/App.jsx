@@ -9,10 +9,14 @@ import Collection from "./Pages/Collection.jsx"
 import Cart from "./Pages/Cart.jsx"
 import WishList from "./Pages/WishList.jsx"
 import Hero from "./Components/Hero.jsx"
+import Product from "./Components/Product.jsx"
+import Cart2 from "./Pages/Cart2.jsx"
+import SignIn from "./Pages/SignIn.jsx"
+import SignUp from "./Pages/SignUp.jsx"
 
 const Layout = ()=>{
   return(
-    <div>
+    <div className="">
       <Nav />
       <Outlet />
       <Footer />
@@ -24,7 +28,7 @@ function App() {
 
   return (
     
-      <div>
+      <div className=" overflow-x-hidden">
       
        {/* <HashRouter> */}
        <Router>
@@ -38,7 +42,9 @@ function App() {
             <Route path="wishlist" element={<WishList />}/>
             {/* <Route path="login" element={<Login />} /> */}
             <Route path="collection" element={<Collection />} />
-
+            <Route path="/product/:id" element={<Product />} />
+            <Route path="sigin" element={<SignIn />} />
+            <Route  path="signup" element={<SignUp />} />
 
       </Route>
      </Routes>

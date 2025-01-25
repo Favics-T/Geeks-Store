@@ -1,24 +1,21 @@
 import { CartContext } from '../Context/CartContext';
-import React, {useContext} from 'react'
 // import icons
 import { IoAddOutline, IoRemoveOutline, IoCloseOutline } from 'react-icons/io5';
 import empty from '../assets/emptyCart.png'
 import { Link } from 'react-router-dom';
 
- const Cart = () => {
-  const {itemIncrease,itemDecrease, cart,removeFromCart, clearCart, total, cartCount } =    useContext(CartContext);
-   
+ const Cart2 = () => {
+  const {itemQuantity,itemIncrease,itemDecrease, cart,  removeFromCart, clearCart, total, cartCount } =    useContext(CartContext);
+  //  console.log(itemDecrease, "Cart Context")
+  //  console.log(itemQuantity)
+
+
   return (
-   <div className=''>
-
-<h2 className='headers ml-[45%]  mt-4'>Cart({cartCount})</h2>
-
-{/* Cart Body Starts Here */}
-<div className=' h-auto mb-20 grid grid-cols-2'>
+   <div>
+<h2 className='headers left-1/2 mt-4'>Cart({cartCount})</h2>
+<div className=' bg-slate-100 h-auto grid grid-cols-2'>
     {
-      cart.length > 0 ? (
-        <div className='grid grid-cols-2'>
-          
+      cart.length > 0 ?(
        <div>
          <div className='flex bg-white w-[1100px]  top-20'>
                     <div  className=' h-auto py-8 px-8   flex'>                
@@ -26,17 +23,19 @@ import { Link } from 'react-router-dom';
             <div className='grid grid-cols-3 px-8 items-center text-center py-2'>
             <h1 className=' '>Product Image</h1>
             <h1>Product Details</h1>
-            <h1 className='ml-40'>Product Quantity </h1>
+                              <h1 className='ml-40'>Product Quantity </h1>
             </div>
               {
                 cart.map((item)=>(
-
-        <div key={item.id}
+                  <div key={item.id}
                   className='w-full border border-y-black p-4 flex items-center gap-6'>
  <div className='w-full flex items-center justify-center gap-6'>
 
-<div className='w-2/5'><img className='w-full h-44 object-contain'
-                          src={item.image} alt="ProductImg" />    
+<div className='w-2/5'>
+<img
+className='w-full h-44 object-contain'
+src={item.image} 
+alt="ProductImg" />    
 </div>
 
 <div className='w-4/5'>
@@ -59,37 +58,32 @@ className='buttons'>-</button>
      </div>
                     <div className='border  '>
 <p className='p-20 text-[40px] '>{item.quantity}</p>
-</div>  </div>                                  
+</div>
+                                           </div>
+                                          
                 )) }
 
-
+<button className='relative top-[305px] text-white rounded-2xl left-[200px] bg-red-700 w-[100px] h-[60px] '
+                           onClick={clearCart}
+                           >Clear cart </button>
           </div>
-                  
-       
-</div>
- 
-</div>
-
-</div>  
-
-<div className=' border-4 border-[#000b53] mt-8 h-60  w-56 p-10 relative left-[770px] '>
+                  <div className='absolute border-4 border-[#000b53]  w-60 p-10 left-[100%]'>
                   <h1 className='text-center m-4 underline underline-offset-4 font-titleFont'>Order Summary</h1>
 
 <div className='text-black mx-10 '>
   <h1 className='w-36'>Shipping Fee: 0$</h1>
   <h1>Total:${total.toFixed(2)} </h1>
-
+</div>
+               </div>
+       
+</div>
+ 
 </div>
 
+{/* <button>Clear Cart</button> */}
 
-               </div>
-               <button className=' text-white ml-8 rounded-2xl bg-red-700 w-[100px] h-[60px] '
-                           onClick={clearCart}
-                           >Clear cart </button>
-        </div>
-
-):
-             
+</div>    ):
+//             
 (
 <div className='flex flex-col items-center justify-center h-screen'>
 <img src={empty} alt="Empty Cart"
@@ -104,11 +98,9 @@ className='w-1/2' />
 
 </div>
 
-{/* Cart Body Ends Here */}
-
 
 </div>
 )
 }
 
-export default Cart
+export default Cart2
