@@ -5,7 +5,7 @@ import { CartContext } from "../Context/CartContext";
 const Product = ( {product} )=>{
      const {  addToCart } = useContext(CartContext);
      
-    const {id,title,category,image,price,description} = product
+    const {id,title,category,image,price,description,popMessage} = product
 // grid grid-cols-4 gap-10
     return(
       <div key={id}
@@ -14,7 +14,7 @@ const Product = ( {product} )=>{
       hover:shadow-textShadow duration-200 flex flex-col gap-4 relative">
         <div className="w-full h-auto flex items-center justify-center relative group">
             <img className="w-52 h-64 object-contain" src={image} alt='Product Image'/>
-
+        <h1 className="text-[90px]">{popMessage}</h1>
         </div>
 
         <div className="px-4 z-10 bg-white">

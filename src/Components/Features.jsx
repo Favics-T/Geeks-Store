@@ -7,32 +7,28 @@ const Features = () => {
 
 
   return (
-    <div className='font-bodyFont  place-items-center px-20 py-8 gap-10 grid grid-cols-3'>
-
-        <div>
-            <FaShippingFast className='w-20 h-10 ml-14'/>
-            <h1 className='featt '>Free Shipping</h1>
-            <p className='featp'>We offer Free Shipping and delivery</p>
-        </div>
-
-        <div>
-            <FcOnlineSupport className='w-20 h-10 ml-28'/>
-            <h1 className='featt'>Support 24/7</h1>
-            <p className='featp'>We Offer 24/7 Support and attention</p>
-        </div>
-
-        <div>
-            <FaRegMoneyBillAlt className='w-20 h-10 ml-36'/>
-            <h1 className='featt'>Money Return</h1>
-            <p className='featp'>We have a refund policy, but it comes with terms and condition.
-                
-            </p>
-        </div>
-
-        
-
-      
+    <div className="font-bodyFont px-20 py-8 grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+    <div className="flex flex-col items-center">
+        <FaShippingFast className="w-10 h-10 text-blue-500" />
+        <h1 className="text-lg font-bold mt-2">Free Shipping</h1>
+        <p className="text-gray-600 text-sm">We offer Free Shipping and delivery</p>
     </div>
+
+    <div className="flex flex-col items-center">
+        <FcOnlineSupport className="w-10 h-10" />
+        <h1 className="text-lg font-bold mt-2">Support 24/7</h1>
+        <p className="text-gray-600 text-sm">We offer 24/7 Support and attention</p>
+    </div>
+
+    <div className="flex flex-col items-center">
+        <FaRegMoneyBillAlt className="w-10 h-10 text-green-500" />
+        <h1 className="text-lg font-bold mt-2">Money Return</h1>
+        <p className="text-gray-600 text-sm">
+            We have a refund policy, but it comes with terms and conditions.
+        </p>
+    </div>
+</div>
+
   )
 }
 
