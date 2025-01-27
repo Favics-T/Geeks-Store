@@ -1,114 +1,107 @@
 import { CartContext } from '../Context/CartContext';
-import React, {useContext} from 'react'
+import React, { useContext } from 'react';
 // import icons
 import { IoAddOutline, IoRemoveOutline, IoCloseOutline } from 'react-icons/io5';
-import empty from '../assets/emptyCart.png'
+import empty from '../assets/emptyCart.png';
 import { Link } from 'react-router-dom';
 
- const Cart = () => {
-  const {itemIncrease,itemDecrease, cart,removeFromCart, clearCart, total, cartCount } =    useContext(CartContext);
-   
+const Cart = () => {
+  const { itemIncrease, itemDecrease, cart, removeFromCarts, clearCart, total, cartCount } = useContext(CartContext);
+
   return (
-   <div className=''>
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl font-semibold text-center mt-4">Cart ({cartCount})</h2>
 
-<h2 className='headers ml-[45%]  mt-4'>Cart({cartCount})</h2>
-
-{/* Cart Body Starts Here */}
-<div className=' h-auto mb-20 grid grid-cols-2'>
-    {
-      cart.length > 0 ? (
-        <div className='grid grid-cols-2'>
-          
-       <div>
-         <div className='flex bg-white w-[1100px]  top-20'>
-                    <div  className=' h-auto py-8 px-8   flex'>                
-          <div className='w- border-2 border-black '>
-            <div className='grid grid-cols-3 px-8 items-center text-center py-2'>
-            <h1 className=' '>Product Image</h1>
-            <h1>Product Details</h1>
-            <h1 className='ml-40'>Product Quantity </h1>
+      {/* Cart Body */}
+      <div className="mt-6">
+        {cart.length > 0 ? (
+          <div className="flex flex-col lg:flex-row">
+            {/* Cart Items */}
+            <div className="flex-1 bg-white p-4 rounded-lg shadow-md">
+              <div className="grid grid-cols-3 font-semibold text-center border-b pb-2">
+                <p>Product Image</p>
+                <p>Product Details</p>
+                <p>Quantity</p>
+              </div>
+              {cart.map((item) => (
+                <div
+                  key={item.id}
+                  className="grid grid-cols-3 items-center gap-4 border-b py-4"
+                >
+                  <div className="flex justify-center">
+                    <img
+                      className="w-24 h-24 object-contain"
+                      src={item.image}
+                      alt={item.title}
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">{item.title}</h3>
+                    <p className="text-sm text-gray-600">
+                      {item.description.substring(0, 130)}...
+                    </p>
+                    <p>
+                      Unit Price:{" "}
+                      <span className="font-semibold">${item.price}</span>
+                    </p>
+                    <div className="flex gap-2 mt-2">
+                      <button
+                        onClick={() => itemIncrease(item.id)}
+                        className="px-3 py-1 bg-blue-500 text-white rounded"
+                        aria-label="Increase Quantity"
+                      >
+                        +
+                      </button>
+                      <button
+                        onClick={() => removeFromCarts(item.id)}
+                        className="px-3 py-1 bg-red-500 text-white rounded"
+                        aria-label="Remove Item"
+                      >
+                        Erase
+                      </button>
+                      <button
+                        onClick={() => itemDecrease(item.id)}
+                        className="px-3 py-1 bg-blue-500 text-white rounded"
+                        aria-label="Decrease Quantity"
+                      >
+                        -
+                      </button>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-xl font-semibold">{item.quantity}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-              {
-                cart.map((item)=>(
 
-        <div key={item.id}
-                  className='w-full border border-y-black p-4 flex items-center gap-6'>
- <div className='w-full flex items-center justify-center gap-6'>
-
-<div className='w-2/5'><img className='w-full h-44 object-contain'
-                          src={item.image} alt="ProductImg" />    
-</div>
-
-<div className='w-4/5'>
-<h2 className='font-semibold w-1/2 text-lg'> {item.title} </h2>
-<p className='pr-10 w-1/2  text-sm'> {item.description.substring(0,130)} </p>
-<p className='text-base'> Unit Price{" "}:
-<span className='font-semibold'>${item.price}</span>
-</p>
-
-<div className='flex '>
-<button  onClick={()=> itemIncrease(item.id)}
-className='buttons'>+</button>
-<button onClick={()=> removeFromCart(item.id)}
-className='buttons'>Erase</button>
-<button  onClick={()=> itemDecrease(item.id)} 
-className='buttons'>-</button>
-</div>
-
-</div>
-     </div>
-                    <div className='border  '>
-<p className='p-20 text-[40px] '>{item.quantity}</p>
-</div>  </div>                                  
-                )) }
-
-
+            {/* Order Summary */}
+            <div className="lg:ml-8 mt-6 lg:mt-0 bg-blue-50 p-4 rounded-lg shadow-md w-full lg:w-1/4">
+              <h3 className="text-center font-semibold underline mb-4">
+                Order Summary
+              </h3>
+              <p>Shipping Fee: $0</p>
+              <p className="font-semibold text-lg">Total: ${total.toFixed(2)}</p>
+              <button
+                className="w-full bg-red-600 text-white py-2 rounded mt-4"
+                onClick={clearCart}
+              >
+                Clear Cart
+              </button>
+            </div>
           </div>
-                  
-       
-</div>
- 
-</div>
+        ) : (
+          // Empty Cart
+          <div className="flex flex-col items-center justify-center min-h-[50vh]">
+            <img src={empty} alt="Empty Cart" className="w-1/2" />
+            <Link to="/collection" className="mt-4 text-blue-600 underline">
+              Continue Shopping
+            </Link>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
-</div>  
-
-<div className=' border-4 border-[#000b53] mt-8 h-60  w-56 p-10 relative left-[770px] '>
-                  <h1 className='text-center m-4 underline underline-offset-4 font-titleFont'>Order Summary</h1>
-
-<div className='text-black mx-10 '>
-  <h1 className='w-36'>Shipping Fee: 0$</h1>
-  <h1>Total:${total.toFixed(2)} </h1>
-
-</div>
-
-
-               </div>
-               <button className=' text-white ml-8 rounded-2xl bg-red-700 w-[100px] h-[60px] '
-                           onClick={clearCart}
-                           >Clear cart </button>
-        </div>
-
-):
-             
-(
-<div className='flex flex-col items-center justify-center w-screen h-screen'>
-<img src={empty} alt="Empty Cart"
-className='w-1/2' />
-<Link to='/collection'> 
-<h2 className='underline underline-offset-4 mt-4'>Continue Shopping</h2>
-</Link>
-</div>
-)
-} 
-
-
-</div>
-
-{/* Cart Body Ends Here */}
-
-
-</div>
-)
-}
-
-export default Cart
+export default Cart;

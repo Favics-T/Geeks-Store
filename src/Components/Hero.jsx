@@ -13,6 +13,7 @@ import Tro5 from '../assets/Tro5.png'
 import Tro6 from '../assets/Tro6.png'
 import Tro7 from '../assets/tro7.png'
 import Tro8 from '../assets/Tro8.png'
+import { Link } from 'react-router-dom'
 
 const Hero = ()=>{
 
@@ -29,8 +30,10 @@ const Hero = ()=>{
         return  () => clearInterval(intervalId);
         }, []);
 
+        const rightdivStyle = 'absolute top-60 left-[700px] '
+
     return(
-        <div className='bg-slate-100 grid grid-cols-1 md:grid md:grid-cols-2 gap-4 items-center '>
+        <div className='bg-slate-100 lg:grid lg:grid-cols-2 grid grid-cols-2 md:grid md:grid-cols-1  gap-4 items-center '>
 
             {/* image view starts her */}
                 <div className='flex justify-center'>
@@ -42,12 +45,12 @@ const Hero = ()=>{
 
 
             {/* Right Div */}
-            <div className="absolute top-60 left-[700px] 
+            <div className=" h-auto py-4 px-4          
             
              bg-slate-100 ">
 
                 <div>
-                    <h1 className="text-[50px] font-bold">UP TO</h1>
+                    <h1 className="lg:text-[50px] text-[30px]  font-bold">UP TO</h1>
                 </div>
 
                 <div>
@@ -65,8 +68,14 @@ the prices are extra nice.
                 </div>
 
                 <div className="flex">
-                <h1 className="bg-black text-white font-listFont mr-2 p-3 w-36 text-center rounded-xl font-semibold">Men</h1>
-                <h2 className="bg-black text-white font-listFont p-3 w-36 text-center rounded-xl font-semibold">Women</h2>
+              <Link to='/men'>
+              <h1 className="bg-black text-white font-listFont mr-2 p-3 w-36 text-center rounded-xl font-semibold">Men</h1>
+              </Link>
+               
+               <Link>
+               <h2 className="bg-black text-white font-listFont p-3 w-36 text-center rounded-xl font-semibold">Women</h2>
+               </Link>
+               
             </div>
             </div>
 

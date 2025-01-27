@@ -9,6 +9,7 @@ const CartProvider = ({ children })=>{
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
+  const [task,setTask] = useState([])
 
   const [ cartCount, setCartCount ] = useState(0);
   // item amount state
@@ -18,8 +19,15 @@ const CartProvider = ({ children })=>{
   // cart count state
  const[popMessage, setPopMessage] = useState('')
 
+ const removeFromCarts = (id)=>{
+  setCart((prevItems)=> prevItems.filter((item)=> item.id !==id
+
+))
+}
+
  useEffect(() => {
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalItems = cart.reduce((acc, item) => 
+    acc + item.quantity, 0);
   setCartCount(totalItems);
 }, [cart]);
 
@@ -49,7 +57,8 @@ const itemDecrease = (itemId) => {
  const addToCart = (newItem) => {
   setCart((prevItems) => {
     // Check if item exists
-    const itemExist = prevItems.find((item) => item.id === newItem.id);
+    const itemExist = prevItems.find((item) => 
+      item.id === newItem.id);
 
     // If item exists, update quantity
     if (itemExist) {
@@ -67,8 +76,6 @@ setTimeout(() => setPopMessage('')
   , 3000);
 };
 
-
-
   useEffect(() => {
     const calculatedTotal = cart.reduce(
       (acc, item) => acc + item.price * item.quantity,
@@ -82,6 +89,7 @@ setTimeout(() => setPopMessage('')
 
  // Remove from cart function
   const removeFromCart = (id, removeAll = false) => {
+   
     setCart((prevItems) => {
       if (removeAll) {
         // Remove the entire item
@@ -97,9 +105,7 @@ setTimeout(() => setPopMessage('')
     });
   };
 
-  // const removeFromCart = (id)=>{
-  //   setCart((prevCart) => prevCart.filter(item=> item.id === id))
-  // }
+ 
 
   const clearCart = () => {
     setCart([]);
@@ -129,6 +135,7 @@ setTimeout(() => setPopMessage('')
       cart,
       addToCart,
       removeFromCart,
+      removeFromCarts,
       clearCart,
       total,
       cartCount,
