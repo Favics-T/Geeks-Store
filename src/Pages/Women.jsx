@@ -1,90 +1,71 @@
-import { useContext, useMemo, useState } from "react"
-import { ProductContext } from "../Context/ProductContext"
+import { useContext, useState } from "react";
+import { ProductContext } from "../Context/ProductContext";
 import Product from "../Components/Product";
 
-const Women = ()=>{
-    const { products } = useContext(ProductContext);
-    const [productDetails, setProductDetails] = useState('');
-    const [view,setView] = useState(false);
-    const women = products.filter((womens)=>{
-        return womens.category === "women's clothing"
-    })
+const Women = () => {
+  const { products } = useContext(ProductContext);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-    const productView = useMemo(() => {
-        return products.filter((item) => productDetails && item.id === productDetails);
-    }, [products, productDetails]);
+  // Filter women's clothing
+  const women = products.filter((item) => item.category === "women's clothing");
 
+  return (
+    <div className="my-10 px-4">
+      <h1 className="text-center text-2xl font-bold mb-8">Women's Collection</h1>
 
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        {/* Product Details Section */}
+        <aside className="md:col-span-1">
+          <h2 className="bg-black text-white text-center py-2 rounded-md font-bold mb-4">
+            Product Details
+          </h2>
+          {selectedProduct ? (
+            <div className="border border-blue-900 p-4 rounded-lg shadow-lg">
+              <h1 className="font-bold text-lg mb-2">{selectedProduct.title}</h1>
+              <img
+                src={selectedProduct.image}
+                alt={selectedProduct.title}
+                className="w-full rounded-md mb-2"
+              />
+              <p className="text-gray-700 mb-2">{selectedProduct.description}</p>
+              <p className="font-bold">
+                Price: <span className="text-green-600">${selectedProduct.price}</span>
+              </p>
+              <button
+                className="bg-red-500 text-white px-4 py-2 mt-4 rounded-md w-full"
+                onClick={() => setSelectedProduct(null)}
+              >
+                Close
+              </button>
+            </div>
+          ) : (
+            <p className="text-center text-gray-500">Select a product to view details</p>
+          )}
+        </aside>
 
-    
-    return(
-       <div className="my-10">
-        <div>
-        <h1 className="buttons text-center font-bodyFont font-semibold">Womens Collection</h1>
-        </div>
+        {/* Women's Clothing Section */}
+        <section className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {women.length > 0 ? (
+            women.map((item) => (
+              <div key={item.id} className="bg-gray-100 p-4 rounded-lg shadow-md">
+                <Product product={item} />
+                <button
+                  className="bg-black text-white px-4 py-2 mt-4 rounded-md w-full"
+                  onClick={() => setSelectedProduct(item)}
+                >
+                  View Details
+                </button>
+              </div>
+            ))
+          ) : (
+            <p className="col-span-full text-center text-gray-500">
+              No products available in this category.
+            </p>
+          )}
+        </section>
+      </div>
+    </div>
+  );
+};
 
-
-         <div className="grid grid-cols-4 pb-20 py-10">
-{/* Product Details Section */}
-
-<div className=" border ">
-        <h1 className="bg-black my-4 mx-4 rounded-xl text-center text-white font-bold">Product Details</h1>
-
-        <div>
-        {!view || productView.length === 0 ? (
-                        <p className="text-center text-gray-500">
-                          View Product Details
-                        </p>
-                    ) : 
-                    (
-                        <div className="border border-blue-900 py-4 px-4 mx-10 rounded-lg shadow-lg">
-                            <h1 className="font-bold text-lg py-2">{productView[0].title}</h1>
-                            <img
-                                src={productView[0].image}
-                                alt="Product"
-                                className="py-2"
-                            />
-                            <p className="font-bodyFont text-[9px] hover:text-[20px] font-light">
-                                {productView[0].description}
-                            </p>
-                            <p>
-                                <span className="font-bold">Price:</span> ${productView[0].price}
-                            </p>
-                            <button
-                                className="bg-red-500 text-white relative  px-2 py-2  mt-4 rounded-lg"
-                                onClick={() => setView(false)}
-                            >
-                                Close
-                            </button>
-                        </div>
-                    )}
-        </div>
-</div>
-
-
-
-
-
-<div className=" col-span-2  px-10 grid grid-cols-3 gap-14  mx-24 w-[800px]">
-    {
-        women.map((womenItem)=>{
-            return( 
-                <div key={womenItem.id}>
- <Product product={womenItem} key={womenItem.id}/>
-
- <button  
- onClick={()=> {setProductDetails(womenItem.id);
-     setView(true)}}
- className="w-full bg-black text-white px-2 py-2 my-1 rounded-lg">View</button>
-                </div>
-            
-           )
-        })
-    }
-</div>
-
-</div>
-       </div>
-    )
-}
-export default Women
+export default Women;

@@ -1,90 +1,72 @@
-import { useContext, useState, useMemo } from "react";
+import { useContext, useState } from "react";
 import { ProductContext } from "../Context/ProductContext";
 import Product from "../Components/Product";
 
 const Men = () => {
-    const [productDetails, setProductDetails] = useState("");
-    const [view, setView] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-    const { products } = useContext(ProductContext);
+  const { products } = useContext(ProductContext);
 
-    // Filter men's clothing
-    const men = products.filter((mens) => mens.category === "men's clothing");
+  // Filter men's clothing
+  const men = products.filter((product) => product.category === "men's clothing");
 
-    // Memoized product details
-    const personalView = useMemo(() => {
-        return products.filter((item) => productDetails && item.id === productDetails);
-    }, [products, productDetails]);
+  return (
+    <div className="my-10 px-4">
+      <h1 className="text-center text-2xl font-bold mb-8">Men's Clothing</h1>
 
-    return (
-        <div className="my-10">
-            <div>
-                <h1 className="text-center buttons font-bodyFont font-semibold">Men's Clothing</h1>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        {/* Product Details Section */}
+        <aside className="md:col-span-1">
+          <h2 className="bg-black text-white text-center py-2 rounded-md font-bold mb-4">
+            Product Details
+          </h2>
+          {selectedProduct ? (
+            <div className="border border-blue-900 p-4 rounded-lg shadow-lg">
+              <h1 className="font-bold text-lg mb-2">{selectedProduct.title}</h1>
+              <img
+                src={selectedProduct.image}
+                alt={selectedProduct.title}
+                className="w-full rounded-md mb-2"
+              />
+              <p className="text-gray-700 mb-2">{selectedProduct.description}</p>
+              <p className="font-bold">
+                Price: <span className="text-green-600">${selectedProduct.price}</span>
+              </p>
+              <button
+                className="bg-red-500 text-white px-4 py-2 mt-4 rounded-md w-full"
+                onClick={() => setSelectedProduct(null)}
+              >
+                Close
+              </button>
             </div>
-            <div className="grid grid-cols-4 pb-20 py-10 h-[150vh] ">
-            {/* Product Details Section */}
-            <section>
-                <h2 className="bg-black my-4 mx-4 rounded-xl text-center text-white font-bold">
-                    Product Details
-                </h2>
-                <div>
-                    {!view || personalView.length === 0 ? (
-                        <p className="text-center text-gray-500">
-                          View Product Details
-                        </p>
-                    ) : 
-                    (
-                        <div className="border border-blue-900 py-4 px-4 mx-10 rounded-lg shadow-lg">
-                            <h1 className="font-bold text-lg py-2">{personalView[0].title}</h1>
-                            <img
-                                src={personalView[0].image}
-                                alt="Product"
-                                className="py-2"
-                            />
-                            <p className="font-bodyFont text-[9px] hover:text-[20px] font-light">
-                                {personalView[0].description}
-                            </p>
-                            <p>
-                                <span className="font-bold">Price:</span> ${personalView[0].price}
-                            </p>
-                            <button
-                                className="bg-red-500 text-white relative  px-2 py-2  mt-4 rounded-lg"
-                                onClick={() => setView(false)}
-                            >
-                                Close
-                            </button>
-                        </div>
-                    )}
-                </div>
-            </section>
+          ) : (
+            <p className="text-center text-gray-500">Select a product to view details</p>
+          )}
+        </aside>
 
-            {/* Men's Clothing Section */}
-            <section className="col-span-3 grid grid-cols-4 gap-14 my-8 mx-8">
-                            
-                {men.map((menItem) => (
-                    
-                        <div key={menItem.id} className="h-8">
-                      
-                        <Product product={menItem} />
-                        <button
-                            className="bg-black w-full text-white px-2 py-2 my-1 rounded-lg"
-                            onClick={() => {
-                                setView(true);
-                                setProductDetails(menItem.id);
-                            }}
-                        >
-                            View
-                        </button>
-                    </div>
-                    
-                ))}
-            </section>
-        </div>
-    
-        </div>
-
-
-);
+        {/* Men's Clothing Section */}
+        <section className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {men.length > 0 ? (
+            men.map((item) => (
+              <div key={item.id} className="bg-gray-50 p-4 rounded-lg shadow-md">
+                <Product product={item} />
+                <button
+                  className="bg-black text-white px-4 py-2 mt-4 rounded-md w-full"
+                  onClick={() => setSelectedProduct(item)}
+                >
+                  View Details
+                </button>
+              </div>
+            ))
+          ) : (
+            <p className="col-span-full text-center text-gray-500">
+              No products available.
+            </p>
+          )}
+        </section>
+      </div>
+    </div>
+  );
 };
 
 export default Men;
